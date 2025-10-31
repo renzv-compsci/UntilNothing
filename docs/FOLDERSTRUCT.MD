@@ -9,9 +9,7 @@ no-ending/
 │ │ ├── input.c
 │ │ ├── lua_bindings.c
 │ │ └── utils.c
-│ ├── include/
 │ └── Makefile
-│
 ├── game/
 │ ├── scripts/
 │ │ ├── main.lua
