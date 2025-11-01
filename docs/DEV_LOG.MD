@@ -21,3 +21,10 @@
   - Realized the order of arguments matters (source files before `-l` flags), and why an import library needs to match the headers.
   - Learned the point of a Makefile: automate build commands, keep flags consistent, and stop typing the same long gcc line every time.
 - Added a simple Makefile and tweaked VSCode configs so builds and IntelliSense are happier. Small QoL wins.
+
+## Nov 1, 2025
+- Made main.c working using documentation
+ - learned how to read documentation 
+ - uses a lot of references in youtube 
+ - fixed the file structure as well 
+- Created boilerplates for linking of game engine and lua 
