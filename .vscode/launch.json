@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Renz/UntilNothing",
-      "program": "c:/Users/Renz/UntilNothing/main.exe",
+      "cwd": "C:/Users/Renz/UntilNothing",
+      "program": "C:/Users/Renz/UntilNothing/main.exe",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

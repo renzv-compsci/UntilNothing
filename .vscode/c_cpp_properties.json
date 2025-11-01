@@ -6,8 +6,7 @@
                 "${workspaceFolder}/**",
                 "C:/SDL/i686-w64-mingw32/include",
                 "C:/SDL/i686-w64-mingw32/lib",
-                "C:/LUA/lua-5.4.8/src",
-                "C:/SDL/i686-w64-mingw32/include"
+                "C:/LUA/lua-5.4.8/src"
             ],
             "compilerPath": "C:/MinGW/bin/gcc.exe",
             "cStandard": "${default}",
