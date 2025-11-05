@@ -1,9 +1,9 @@
-// declares function types, macros, and variables 
+// declares and list the function types, macros, and variables 
 
 #ifndef ENGINE_LUA_H
 #define ENGINE_LUA_H
 
-const char* game_script_path = "C:/Users/Renz/UntilNothing/game/scripts/main.lua";
+
 
 // Initialize lua and load game script 
 void engine_lua_init(const char* game_script_path);

@@ -2,6 +2,7 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include "engine_lua.h"
 
 // main entry point 
 int main (int argc, char* argv[]) {
@@ -39,6 +40,8 @@ int main (int argc, char* argv[]) {
         return 1;
     }
 
+    engine_lua_init("game/scripts/main.lua");
+
     // Main loop of the engine 
     while (!done) {
         SDL_Event event;
@@ -52,11 +55,15 @@ int main (int argc, char* argv[]) {
         // SDL_RenderTexture(renderer, myTexture, NULL, NULL);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
+        // Call Lua functions 
+        engine_lua_update(); 
+        engine_lua_draw(); 
 
     }
     // Close and destroy window 
     SDL_DestroyWindow(window);  
     SDL_DestroyRenderer(renderer);
+    engine_lua_shutdown();
     SDL_Quit();
     return 0;
 }
