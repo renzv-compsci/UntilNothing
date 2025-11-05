@@ -23,6 +23,7 @@
 - Added a simple Makefile and tweaked VSCode configs so builds and IntelliSense are happier. Small QoL wins.
 
 ## Nov 1, 2025
+
 - Made main.c working using documentation
  - learned how to read documentation 
  - uses a lot of references in youtube 
