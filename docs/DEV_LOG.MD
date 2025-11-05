@@ -29,3 +29,10 @@
  - uses a lot of references in youtube 
  - fixed the file structure as well 
 - Created boilerplates for linking of game engine and lua 
+
+## Nov 6, 2025 
+
+- Succesfull integrate Lua into C using embedded API 
+  - Learned how to create and implement functions that connects to LUA 
+  - Integrate connection / linker between c and lua 
+  - Learned the importance of using header files like 'engine_lua.h'
