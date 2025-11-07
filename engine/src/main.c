@@ -29,6 +29,7 @@ int main (int argc, char* argv[]) {
         height, 
         SDL_WINDOW_OPENGL
     );
+
     if (window == NULL) {
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Can not create window: %s\n", SDL_GetError());
         return 1;
@@ -39,7 +40,12 @@ int main (int argc, char* argv[]) {
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create renderer: %s\n", SDL_GetError());
         return 1;
     }
+    engine_set_renderer(renderer);
 
+
+    int last_key_pressed = 0;
+    last_key_pressed = 0;
+    engine_lua_update(last_key_pressed);
     engine_lua_init("game/scripts/main.lua");
 
     // Main loop of the engine 
@@ -49,6 +55,17 @@ int main (int argc, char* argv[]) {
             if(event.type == SDL_EVENT_QUIT) {
                 done = true;
             }
+
+            if(event.type == SDL_EVENT_KEY_DOWN) {
+                last_key_pressed = event.key.key;
+            }
+
+            if (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_R) {
+                engine_lua_shutdown();
+                engine_lua_init("game/scripts/main.lua");
+                engine_set_renderer(renderer);
+            }
+            
         }
         // This is the loop where u draw stuff
         SDL_SetRenderDrawColor(renderer, 102, 178, 255, 255); 
@@ -56,9 +73,8 @@ int main (int argc, char* argv[]) {
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
         // Call Lua functions 
-        engine_lua_update(); 
+        engine_lua_update(last_key_pressed); 
         engine_lua_draw(); 
-
     }
     // Close and destroy window 
     SDL_DestroyWindow(window);  
