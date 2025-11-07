@@ -15,3 +15,42 @@
         Print/log an error if the script fails to load
             
 - [/] Create simple game.lua script for prototyping and testing
+
+# TODO - November 7–8, 2025
+
+## DAY 1: ENGINE SIDE
+- [ ] **Input Handling**
+    - [ ] Pass key press state from SDL (C) into Lua’s update function (e.g. call `update(key)` in Lua each frame)
+    - [ ] Allow Lua to detect “Play” or action keys (e.g. Space, Enter, arrows)
+
+- [ ] **Lua-C Interface Extensions**
+    - [ ] Expose a function or command from C for Lua to trigger (e.g. `engine.quit()` to close engine from Lua)
+    - [ ] Expose a simple renderer function (draw_rect or draw_text) from C to Lua
+    
+- [ ] **Script Reload**
+    - [ ] Add a "reload scripts at runtime" feature (when pressing ‘R’ in C, reload Lua script)
+
+- [ ] **Project Organization**
+    - [ ] Organize folders: `src/` (engine), `scripts/` (Lua), `assets/` (future)
+    - [ ] Basic README.md with engine features/structure
+
+---
+
+## DAY 2: GAME SIDE
+
+- [ ] **Game Menus/States**
+    - [ ] In Lua, create a simple menu with a “Play” button/text and switch to “Game” state on key press
+    - [ ] Add “Game Over” or “Winner” state, with option to restart from Lua
+
+- [ ] **Game Logic**
+    - [ ] Make an interactive object: move a player square/shape with arrow keys (use key input from C)
+    - [ ] Add a score or timer variable that’s updated/drawn each frame in Lua
+    - [ ] Define basic win/lose conditions in Lua script
+
+- [ ] **Engine Features (from Day 1)**
+    - [ ] Use new exposed engine C functions (renderer, quit) from Lua for menus or the game
+    - [ ] Draw UI elements and gameplay objects by calling `engine.draw_rect` etc from Lua
+
+- [ ] **Script Enhancements**
+    - [ ] Refactor Lua game state/logic to be clean and modular 
+    - [ ] Add comments and structure to `main.lua` (or game script)
