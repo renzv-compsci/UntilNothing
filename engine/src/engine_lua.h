@@ -3,11 +3,12 @@
 #ifndef ENGINE_LUA_H
 #define ENGINE_LUA_H
 #include <SDL3/SDL.h>
+#include <stdbool.h>
 
 
 
 // Initialize lua and load game script 
-void engine_lua_init(const char* game_script_path);
+bool engine_lua_init(const char* game_script_path);
 
 void engine_set_renderer(SDL_Renderer *r);
 

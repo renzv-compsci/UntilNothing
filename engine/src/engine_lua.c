@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_render.h>
-
+#include <stdbool.h>
 
 static lua_State *L = NULL; 
 static SDL_Renderer *g_renderer = NULL; 
@@ -18,7 +18,7 @@ void engine_set_renderer(SDL_Renderer *r) {
     g_renderer = r;
 }
 
-void engine_lua_init(const char* game_script_path) {
+bool engine_lua_init(const char* game_script_path) {
 
     // new lua state 
     L = luaL_newstate();
@@ -47,6 +47,12 @@ void engine_lua_init(const char* game_script_path) {
 void engine_lua_update(int keycode) {
     if (!L) return;  // run only if lua is initialized 
 
+    bool has_update = false; 
+    bool has_draw = false; 
+
+    has_draw = lua_iscfunction(L, "update");
+    has_update = lua_isfunction(L, "update");
+
     lua_getglobal(L, "update");
     if (lua_isfunction(L, -1)) {
         lua_pushinteger(L, keycode); // pass key
@@ -57,6 +63,15 @@ void engine_lua_update(int keycode) {
     } else {
         lua_pop(L, 1); // remove nonfunction from the stack 
         fprintf(stderr, "'update' is not a lua function", lua_tostring(L, -1));
+    }
+
+    // defensive early return
+    if (L == NULL || !has_update) {
+        return;
+    }
+
+    if (L == NULL || !has_draw) {
+        return;
     }
 }
 

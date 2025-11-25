@@ -20,19 +20,14 @@
 
 ## DAY 1: ENGINE SIDE
 - [ ] **Input Handling**
-    - [ ] Pass key press state from SDL (C) into Lua’s update function (e.g. call `update(key)` in Lua each frame)
-    - [ ] Allow Lua to detect “Play” or action keys (e.g. Space, Enter, arrows)
+    - [ ] Send SDL key press state from SDL (C) into Lua’s update function (e.g. call `update(key)` in Lua each frame)
 
 - [ ] **Lua-C Interface Extensions**
-    - [ ] Expose a function or command from C for Lua to trigger (e.g. `engine.quit()` to close engine from Lua)
-    - [ ] Expose a simple renderer function (draw_rect or draw_text) from C to Lua
+    - [ ] Make a C function `engine.quit()` that Lua can call to exit the engine
+    - [ ] Make a C function `engine.draw_rect(x, y, w, h)` that Lua can call to draw rectangles
     
 - [ ] **Script Reload**
     - [ ] Add a "reload scripts at runtime" feature (when pressing ‘R’ in C, reload Lua script)
-
-- [ ] **Project Organization**
-    - [ ] Organize folders: `src/` (engine), `scripts/` (Lua), `assets/` (future)
-    - [ ] Basic README.md with engine features/structure
 
 ---
 
