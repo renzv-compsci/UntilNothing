@@ -3,6 +3,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include "engine_lua.h"
+#include <stdbool.h> 
 
 // main entry point 
 int main (int argc, char* argv[]) {
@@ -18,6 +19,11 @@ int main (int argc, char* argv[]) {
 
     int width = 640;
     int height = 480;
+
+    // starts with reloading = false so engine is usable
+    bool reloading = false; 
+    bool reload_requested = false;
+    bool success = false; 
     
     // Initialize SDL 3 
     SDL_Init(SDL_INIT_VIDEO);
@@ -36,17 +42,20 @@ int main (int argc, char* argv[]) {
     }
 
     renderer = SDL_CreateRenderer(window, NULL);
-    if (renderer == NULL) {
-        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create renderer: %s\n", SDL_GetError());
-        return 1;
+    if (!renderer) {
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not render: %s\n", SDL_GetError());
     }
-    engine_set_renderer(renderer);
 
+    success = engine_lua_init("game/scripts/main.lua");
+    if (success) {
+         engine_set_renderer(renderer);
+    }
 
     int last_key_pressed = 0;
-    last_key_pressed = 0;
     engine_lua_update(last_key_pressed);
-    engine_lua_init("game/scripts/main.lua");
+
+    int reload_key_pressed = 0; 
+    engine_lua_update(reload_key_pressed); 
 
     // Main loop of the engine 
     while (!done) {
@@ -60,26 +69,46 @@ int main (int argc, char* argv[]) {
                 last_key_pressed = event.key.key;
             }
 
-            if (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_R) {
-                engine_lua_shutdown();
-                engine_lua_init("game/scripts/main.lua");
-                engine_set_renderer(renderer);
+            if (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_R && !reloading) {
+                reload_requested = true; 
             }
-            
+
+            // perform reload once 
+            if (reload_requested) {
+                reloading = true; 
+                engine_lua_shutdown();
+            }
+            success = engine_lua_init("game/scripts/main.lua");
+            if (success) {
+                engine_set_renderer(renderer);
+                reload_requested = false;
+                reloading = false; 
+            }
+
+            // gate per frame bridge calles with reloading flag per frame 
+            if (!reloading) {
+                engine_lua_update(last_key_pressed);
+                last_key_pressed = 0;
+            }
+
+            // ignore key auto repeat 
+            if (event.type == SDL_EVENT_KEY_DOWN && !event.key.repeat) {
+                last_key_pressed = event.key.key;
+                engine_lua_update(last_key_pressed);
+                last_key_pressed = 0;
+            }
         }
-        // This is the loop where u draw stuff
-        SDL_SetRenderDrawColor(renderer, 102, 178, 255, 255); 
-        // SDL_RenderTexture(renderer, myTexture, NULL, NULL);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-        // Call Lua functions 
-        engine_lua_update(last_key_pressed); 
-        engine_lua_draw(); 
     }
+
+    // This is the loop where u draw stuff
+    SDL_SetRenderDrawColor(renderer, 102, 178, 255, 255); 
+    SDL_RenderPresent(renderer);
+    engine_lua_draw();
+    SDL_RenderClear(renderer);
+
     // Close and destroy window 
+    SDL_DestroyRenderer(renderer); // destroy renderer first before window 
     SDL_DestroyWindow(window);  
-    SDL_DestroyRenderer(renderer);
-    engine_lua_shutdown();
     SDL_Quit();
     return 0;
 }
