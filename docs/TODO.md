@@ -19,15 +19,15 @@
 # TODO - November 7–8, 2025
 
 ## DAY 1: ENGINE SIDE
-- [ ] **Input Handling**
-    - [ ] Send SDL key press state from SDL (C) into Lua’s update function (e.g. call `update(key)` in Lua each frame)
+- [/] **Input Handling**
+    - [/] Send SDL key press state from SDL (C) into Lua’s update function (e.g. call `update(key)` in Lua each frame)
 
-- [ ] **Lua-C Interface Extensions**
-    - [ ] Make a C function `engine.quit()` that Lua can call to exit the engine
-    - [ ] Make a C function `engine.draw_rect(x, y, w, h)` that Lua can call to draw rectangles
+- [/] **Lua-C Interface Extensions**
+    - [/] Make a C function `engine.quit()` that Lua can call to exit the engine
+    - [/] Make a C function `engine.draw_rect(x, y, w, h)` that Lua can call to draw rectangles
     
-- [ ] **Script Reload**
-    - [ ] Add a "reload scripts at runtime" feature (when pressing ‘R’ in C, reload Lua script)
+- [/] **Script Reload**
+    - [/] Add a "reload scripts at runtime" feature (when pressing ‘R’ in C, reload Lua script)
 
 ---
 
